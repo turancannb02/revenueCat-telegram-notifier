@@ -4,13 +4,8 @@
 [![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-2CA5E0?style=for-the-badge&logo=telegram)](https://t.me/BotFather)  
 [![MIT License](https://img.shields.io/github/license/turancannb02/revenuecat-telegram-notifier?style=for-the-badge)](LICENSE)
 
-<<<<<<< HEAD
 > A no-code + local development template to send RevenueCat event notifications to Telegram.  
 > Built with [BuildShip](https://buildship.com) and testable via `tsx` locally.
-=======
-
-> A no-code template to receive RevenueCat event notifications directly in your Telegram inbox.
->>>>>>> 313c3cfe603b0a7fe92ceab593916d71c2265b58
 
 ---
 
