@@ -2,7 +2,6 @@
 
 [![Build with BuildShip](https://img.shields.io/badge/Built%20with-BuildShip-blueviolet?style=for-the-badge&logo=serverless)](https://buildship.com)
 [![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-2CA5E0?style=for-the-badge&logo=telegram)](https://t.me/BotFather)
-[![MIT License](https://img.shields.io/github/license/turancannb02/revenuecat-telegram-notifier?style=for-the-badge)](LICENSE)
 
 > A no-code template to receive RevenueCat event notifications directly in your Telegram inbox.
 
