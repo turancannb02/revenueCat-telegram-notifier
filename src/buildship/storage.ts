@@ -1,4 +1,5 @@
 import { Storage } from "@google-cloud/storage";
 
-const storage = new Storage();
-export const bucket = storage.bucket(process.env.BUCKET!);
+export const bucket = process.env.BUCKET
+  ? new Storage().bucket(process.env.BUCKET)
+  : null;

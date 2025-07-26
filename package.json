@@ -26,6 +26,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.17.27"
   }
 }

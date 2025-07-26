@@ -66,9 +66,9 @@ export const scripExecutor =
     root: Record<string, any>,
     subNodes: Record<string, Function> = {}
   ) => {
-    const {
-      default: { default: script },
-    } = await import(`../../scripts/${nodeId}.cjs`);
+    const mod = await import(`../../scripts/${nodeId}.cjs`);
+    const script = mod.default || mod;
+    
     const { nodes } = await import(path.join(workflowDirectory, "nodes.js"));
     const node = nodes.find((node: any) => node.id === nodeId);
     if (!node) {
