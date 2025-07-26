@@ -1,16 +1,17 @@
 # 📲 RevenueCat to Telegram Notifier
 
-[![Build with BuildShip](https://img.shields.io/badge/Built%20with-BuildShip-blueviolet?style=for-the-badge&logo=serverless)](https://buildship.com)
-[![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-2CA5E0?style=for-the-badge&logo=telegram)](https://t.me/BotFather)
+[![Build with BuildShip](https://img.shields.io/badge/Built%20with-BuildShip-blueviolet?style=for-the-badge&logo=serverless)](https://buildship.com)  
+[![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-2CA5E0?style=for-the-badge&logo=telegram)](https://t.me/BotFather)  
 [![MIT License](https://img.shields.io/github/license/turancannb02/revenuecat-telegram-notifier?style=for-the-badge)](LICENSE)
 
-> A no-code template to receive RevenueCat event notifications directly in your Telegram inbox.
+> A no-code + local development template to send RevenueCat event notifications to Telegram.  
+> Built with [BuildShip](https://buildship.com) and testable via `tsx` locally.
 
 ---
 
 ## 📖 Overview
 
-This template connects **RevenueCat webhooks** to **Telegram**, allowing you to get notified in real-time when key subscription events happen:
+This template lets you forward key subscription events from **RevenueCat** to **Telegram**, like:
 
 - 🔔 Trial Started
 - 💳 Initial Purchase
@@ -18,97 +19,108 @@ This template connects **RevenueCat webhooks** to **Telegram**, allowing you to 
 - ❌ Cancellation
 - ... and more
 
-It's built with [BuildShip](https://buildship.com) — a powerful automation platform — and is perfect for indie devs, product owners, and mobile app teams.
+Works both in **BuildShip Cloud** and **local development** with Node.js.
 
 ---
 
 ## ✅ Prerequisites
 
-You'll need the following:
-
-- A [RevenueCat](https://revenuecat.com) account with webhook access
-- A Telegram bot via [@BotFather](https://t.me/BotFather)
-- Your Telegram `chat_id`
-- A [BuildShip](https://buildship.com) account
-- (Optional) Familiarity with `curl` or Postman to test payloads
+- A [RevenueCat](https://revenuecat.com) account with Webhook access  
+- A [Telegram bot](https://t.me/BotFather) + your personal `chat_id`  
+- Node.js v18+ and `tsx` installed globally or via `npx`  
+- Your Telegram Bot Token  
+- (Optional) A BuildShip account to deploy your workflow
 
 ---
 
-## ✍️ How to Use
+## 🧪 Local Testing (with `tsx`)
 
-### 🛠 Step 1: Add Telegram Bot Token to BuildShip
-
-1. In BuildShip, go to **Auth Keys**.
-2. Add your bot token and save it under a recognizable name.
-3. This token is used in the `Send Telegram Message` block.
-
----
-
-### 🧪 Step 2: Connect RevenueCat Webhook
-
-1. Go to [RevenueCat Webhooks](https://app.revenuecat.com/webhooks)
-2. Add a new webhook with your BuildShip **workflow URL**  
-   Example:  
-   `https://your-buildship-url/executeWorkflow/abc123`
-3. Select event types like `INITIAL_PURCHASE`, `RENEWAL`, `CANCELLATION`, etc.
-
----
-
-### 🔧 Step 3: Customize the Message Format (Optional)
-
-Inside the `Format Telegram Message` step, you can edit the output.  
-By default, messages look like this:
-
-```
-🎉 New Purchase Notification
-
-👤 User ID: `user_123`
-🛍️ Product: `com.example.app.premium`
-📅 Date: July 26, 2025, 12:51 PM
-🌍 Country: US
-📝 Event Type: `INITIAL_PURCHASE`
-```
-Markdown formatting is enabled via `parse_mode: "Markdown"`.
-
----
-
-### 🚀 Step 4: Test Your Setup
-
-#### ✅ Option A: RevenueCat Test Button
-
-- Go to the webhook settings in RevenueCat
-- Click **Test Webhook**
-- Choose any event (`RENEWAL`, `CANCELLATION`, etc.)
-
-#### ✅ Option B: Manual curl Test
+### 1️⃣ Install Dependencies
 
 ```bash
-curl -X POST https://your-buildship-url/executeWorkflow/abc123 \
-  -H "Content-Type: application/json" \
-  -d '{
-    "event": {
-      "app_user_id": "user_test",
-      "product_id": "com.example.subscription",
-      "purchased_at_ms": 1753435998800,
-      "type": "RENEWAL",
-      "country_code": "US"
-    }
-  }'
+npm install
 ```
 
-## 🔗 Resources
+### 2️⃣ Add Your Telegram Bot Token
 
-- 📚 [RevenueCat Webhook Docs](https://www.revenuecat.com/docs/webhooks/notifications)
-- 🤖 [Telegram Bot API](https://core.telegram.org/bots/api)
-- 🧪 [Test Webhooks in RevenueCat](https://www.revenuecat.com/docs/webhooks/test-events)
-- 🧰 [BuildShip Templates](https://buildship.com/templates)
+You can either:
+
+#### Option A: Use an `.env` file
+
+Create `.env` in the root:
+
+```env
+projectEnv={"telegram;;telegram-key-1":"<YOUR_TELEGRAM_BOT_TOKEN>"}
+```
+
+#### Option B: Pass inline via terminal
+
+```bash
+projectEnv='{"telegram;;telegram-key-1":"<YOUR_TELEGRAM_BOT_TOKEN>"}' npx tsx test-runner.ts
+```
+
+---
+
+### 3️⃣ Run the Test Script
+
+```bash
+npx tsx test-runner.ts
+```
+
+This simulates a `CANCELLATION` event from RevenueCat.  
+The Telegram message will look like:
+
+```
+ℹ️ Cancellation Event
+
+👤 User ID: `user_test_123`
+🛍️ Product: `com.test.premium`
+📅 Date: July 26, 2025, 12:00 PM
+🌍 Country: US
+📝 Event Type: `CANCELLATION`
+```
+
+> If you see `Unknown` or empty values, check your mock data structure!
+
+---
+
+## 🧰 Using in BuildShip
+
+If you want to run this workflow on BuildShip:
+
+### 🛠 Step 1: Add Telegram Bot Token
+
+1. Go to **Auth Keys**
+2. Add a new key like:  
+   `telegram;;telegram-key-1 = <your bot token>`
+
+---
+
+### 🔗 Step 2: Connect RevenueCat Webhook
+
+1. Go to [RevenueCat Webhooks](https://app.revenuecat.com/webhooks)
+2. Add a new webhook:
+   ```
+   https://your-buildship-url/executeWorkflow/<workflowId>
+   ```
+3. Select event types you want to receive (`INITIAL_PURCHASE`, `RENEWAL`, etc.)
+
+---
+
+## 🔧 Customize Your Telegram Message
+
+You can update the format inside:
+```ts
+scripts/<script-id>.cjs  // e.g., formatTelegramMessage node
+```
+
+Markdown formatting is enabled via `parse_mode: "Markdown"`.
 
 ---
 
 ## 🙌 Author & License
 
-Built by [@turancannb02](https://github.com/turancannb02) with ☕ and ❤️  
-Feel free to fork, star, or contribute at:  
-**`git@github.com:turancannb02/revenueCat-telegram-notifier.git`**
+Built with ☕ by [@turancannb02](https://github.com/turancannb02)  
+**MIT Licensed** — Fork it, test it, ship it.  
 
-Released under the [MIT License](LICENSE)
+> `git clone git@github.com:turancannb02/revenueCat-telegram-notifier.git`
