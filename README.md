@@ -1,9 +1,8 @@
 # 📲 RevenueCat to Telegram Notifier
 
 [![Build with BuildShip](https://img.shields.io/badge/Built%20with-BuildShip-blueviolet?style=for-the-badge&logo=serverless)](https://buildship.com)
-[![Made for Indie Devs](https://img.shields.io/badge/Indie%20Dev-Friendly-✓-brightgreen?style=for-the-badge)](https://indiehackers.com)
 [![Telegram Bot](https://img.shields.io/badge/Telegram-Bot-2CA5E0?style=for-the-badge&logo=telegram)](https://t.me/BotFather)
-[![MIT License](https://img.shields.io/github/license/yourusername/revenuecat-telegram-notifier?style=for-the-badge)](LICENSE)
+[![MIT License](https://img.shields.io/github/license/turancannb02/revenuecat-telegram-notifier?style=for-the-badge)](LICENSE)
 
 > A no-code template to receive RevenueCat event notifications directly in your Telegram inbox.
 
